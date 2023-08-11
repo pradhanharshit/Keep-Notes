@@ -8,9 +8,13 @@
   box-sizing: border-box;
 }
 
+body::-webkit-scrollbar {
+  display: none;
+}
+
 :root {
   --light: #f3f4f6;
-  --sec-light: #9ca3af;
+  --sec-light: #fff;
   --text-light: #001219;
   --dark: #001219;
   --sec-dark: #1e293b;
