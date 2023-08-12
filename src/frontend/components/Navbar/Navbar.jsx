@@ -1,6 +1,10 @@
 import { useSelector } from "react-redux";
 import ToggleButton from "../ToggleButton/ToggleButton";
-import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import {
+  MagnifyingGlassIcon,
+  PencilSquareIcon,
+  UserIcon,
+} from "@heroicons/react/24/outline";
 
 import "./Navbar.css";
 
@@ -13,6 +17,7 @@ const Navbar = () => {
       style={{
         backgroundColor: themeObject.primary,
         color: themeObject.text,
+        boxShadow: `0px 5px 3px ${themeObject.text}`,
       }}
     >
       <h1 className="font-bold text-3xl text-blue-400">Keep Notes</h1>
@@ -25,7 +30,11 @@ const Navbar = () => {
           style={{ backgroundColor: themeObject.secondary }}
         />
       </div>
-      <ToggleButton />
+      <div className="flex space-x-6">
+        <PencilSquareIcon className="h-[35px] w-[35px] stroke-blue-400" />
+        <ToggleButton />
+        <UserIcon className="h-[35px] w-[35px] stroke-blue-400" />
+      </div>
     </navbar>
   );
 };

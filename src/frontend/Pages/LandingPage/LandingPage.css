@@ -1,0 +1,46 @@
+.landing-display {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.landing-image {
+  margin: 0 40px 0 40px;
+}
+
+.landing-text {
+  margin: 0 40px 0 40px;
+}
+
+.title {
+  margin-bottom: 10px;
+}
+
+@media only screen and (max-width: 1000px) {
+  .login-button {
+    padding: 10px 20px 10px 20px;
+  }
+  .landing-image {
+    height: 30rem;
+    width: 30rem;
+  }
+  .title {
+    font-size: 30px;
+  }
+  .about {
+    font-size: 20px;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .landing-text {
+    width: 40vw;
+  }
+  .landing-image {
+    display: none;
+  }
+  .about {
+    font-size: 15px;
+  }
+}

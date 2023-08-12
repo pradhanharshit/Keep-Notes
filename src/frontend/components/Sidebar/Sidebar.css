@@ -1,0 +1,9 @@
+.active .heroicon-outline {
+  stroke: rgb(96 165 250);
+}
+
+.active {
+  color: rgb(96 165 250);
+  font-size: 4rem;
+  font-weight: bold;
+}
