@@ -1,34 +1,30 @@
+/* eslint-disable react/prop-types */
+import Navbar from "../src/frontend/components/NavBar/Navbar";
+import Footer from "../src/frontend/components/Footer/Footer";
+import Sidebar from "../src/frontend/components/Sidebar/Sidebar";
+import { useSelector } from "react-redux/es/hooks/useSelector";
 import "./App.css";
 import { Outlet } from "react-router-dom";
 
-// Toastify
-// import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import Layout from "./frontend/components/Layout/Layout";
-// import Layout from "./frontend/components/Layout/Layout";
-
-function App() {
-  // const showToastMessage = () => {
-  //   toast.success("Success Notification !", {
-  //     position: toast.POSITION.TOP_RIGHT,
-  //   });
-  // };
-
+const App = () => {
+  const { themeObject } = useSelector((state) => state.theme);
   return (
-    <>
-      {/* <Layout>
-        <div className="min-h-[80vh]">
-          <div>
-            <button onClick={showToastMessage}>Notify</button>
-            <ToastContainer />
-          </div>
+    <div className="layout-navbar">
+      <Navbar />
+      <div
+        className="flex h-[80vh]"
+        style={{ backgroundColor: themeObject.primary }}
+      >
+        <Sidebar />
+        <div className="layout-mid-left w-3/5">
+          <Outlet />
         </div>
-      </Layout> */}
-      <Layout>
-        <Outlet />
-      </Layout>
-    </>
+      </div>
+      <div className="layout-footer">
+        <Footer />
+      </div>
+    </div>
   );
-}
+};
 
 export default App;
