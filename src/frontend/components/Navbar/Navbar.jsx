@@ -17,7 +17,6 @@ const Navbar = () => {
       style={{
         backgroundColor: themeObject.primary,
         color: themeObject.text,
-        boxShadow: `0px 5px 3px ${themeObject.text}`,
       }}
     >
       <h1 className="font-bold text-3xl text-blue-400">Keep Notes</h1>
