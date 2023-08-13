@@ -13,6 +13,8 @@ import Archives from "../frontend/components/Archives/Archives";
 import Trash from "../frontend/components/Trash/Trash";
 import Labels from "../frontend/components/Labels/Labels";
 import PageNotFound from "../frontend/Pages/PageNotFound/PageNotFound";
+import PrivateRoute from "../frontend/components/PrivateRoute/PrivateRoute";
+import AuthRoute from "../frontend/components/AuthRoute/AuthRoute";
 // import Layout from "../frontend/components/Layout/Layout";
 
 const Router = () => {
@@ -21,12 +23,18 @@ const Router = () => {
       <>
         <Route path="*" element={<PageNotFound />} />
         <Route path="/landing" element={<LandingPage />} />
-        <Route path="/login" element={<Login />} />
         <Route path="/" element={<App />}>
-          <Route index element={<Home />} />
-          <Route path="/archives" element={<Archives />} />
-          <Route path="/labels" element={<Labels />} />
-          <Route path="/trash" element={<Trash />} />
+          <Route element={<PrivateRoute />}>
+            <Route index element={<Home />} />
+            <Route path="/archives" element={<Archives />} />
+            <Route path="/labels" element={<Labels />} />
+            <Route path="/trash" element={<Trash />} />
+          </Route>
+        </Route>
+
+        <Route element={<AuthRoute />}>
+          <Route path="/login" element={<Login />} />
+          {/* <Route path="/signup" element={<Signup />} /> */}
         </Route>
       </>
     )
