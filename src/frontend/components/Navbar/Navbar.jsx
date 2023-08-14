@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ToggleButton from "../ToggleButton/ToggleButton";
 import {
   MagnifyingGlassIcon,
@@ -7,9 +7,17 @@ import {
 } from "@heroicons/react/24/outline";
 
 import "./Navbar.css";
+import { useState } from "react";
+import { ClickOutHandler } from "react-clickout-ts";
+import { logout } from "../../../store/authSlice";
+// import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const { themeObject } = useSelector((state) => state.theme);
+  const [openFilter, setOpenFilter] = useState(false);
+
+  // const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   return (
     <navbar
@@ -32,7 +40,32 @@ const Navbar = () => {
       <div className="flex space-x-6">
         <PencilSquareIcon className="h-[35px] w-[35px] stroke-blue-400" />
         <ToggleButton />
-        <UserIcon className="h-[35px] w-[35px] stroke-blue-400" />
+        <div>
+          <UserIcon
+            className="h-[35px] w-[35px] stroke-blue-400"
+            onClick={() => {
+              setOpenFilter(!openFilter);
+            }}
+          />
+          <ClickOutHandler onClickOut={() => setOpenFilter(false)}>
+            <div className="relative">
+              {openFilter && (
+                <div
+                  className="absolute right-0 p-2 rounded-2xl"
+                  style={{ backgroundColor: themeObject.secondary }}
+                >
+                  {/* <p style={{ color: themeObject.text }}>{user.username}</p> */}
+                  <button
+                    onClick={() => dispatch(logout())}
+                    style={{ color: themeObject.text }}
+                  >
+                    logout
+                  </button>
+                </div>
+              )}
+            </div>
+          </ClickOutHandler>
+        </div>
       </div>
     </navbar>
   );
