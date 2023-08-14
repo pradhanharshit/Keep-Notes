@@ -4,11 +4,14 @@ import Footer from "../src/frontend/components/Footer/Footer";
 import Sidebar from "../src/frontend/components/Sidebar/Sidebar";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import "./App.css";
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 
 const App = () => {
   const { themeObject } = useSelector((state) => state.theme);
-  return (
+  const { authToken } = useSelector((state) => state.auth);
+  return authToken === "" ? (
+    <Navigate to="/landing" />
+  ) : (
     <div className="layout-navbar">
       <Navbar />
       <div

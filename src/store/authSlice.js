@@ -1,12 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { loginHandler, signupHandler } from "../services/authService";
 
+// const user = JSON.parse(localStorage.getItem("user"));
+// const authToken = localStorage.getItem("token");
+
+const initialState = {
+  user: JSON.parse(localStorage.getItem("user")),
+  authToken: localStorage.getItem("token"),
+};
+
 const authSlice = createSlice({
   name: "auth",
-  initialState: {
-    user: JSON.parse(localStorage.getItem("user")),
-    authToken: localStorage.getItem("token"),
-  },
+  initialState,
   reducers: {
     logout: (state) => {
       localStorage.removeItem("user");
@@ -16,23 +21,23 @@ const authSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder
-      .addCase(loginHandler.fulfilled, (state, action) => {
-        state.user = {
-          username: action.payload.foundUser.username,
-          _id: action.payload.foundUser._id,
-        };
-        state.authToken = action.payload.encodedToken;
-      })
-      .addCase(signupHandler.fulfilled, (state, action) => {
-        state.user = {
-          username: action.payload.createdUser.username,
-          _id: action.payload.createdUser._id,
-        };
-        state.authToken = action.payload.encodedToken;
-      });
+    builder.addCase(loginHandler.fulfilled, (state, action) => {
+      state.user = {
+        username: action.payload.foundUser.firstname,
+        _id: action.payload.foundUser._id,
+      };
+      state.authToken = action.payload.encodedToken;
+    });
+    builder.addCase(signupHandler.fulfilled, (state, action) => {
+      state.user = {
+        username: action.payload.createdUser.firstname,
+        _id: action.payload.createdUser._id,
+      };
+      state.authToken = action.payload.encodedToken;
+    });
   },
 });
 
-export const { login, signup, logout } = authSlice.actions;
+export const { logout } = authSlice.actions;
+
 export default authSlice.reducer;

@@ -3,9 +3,10 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export const loginHandler = createAsyncThunk(
   "auth/login",
-  async ({ username, password, rememberme }) => {
+  async ({ email, password, rememberme }) => {
     try {
-      const res = await axios.post("/api/auth/login", { username, password });
+      console.log("res");
+      const res = await axios.post("/api/auth/login", { email, password });
       if (rememberme) {
         localStorage.setItem(
           "user",

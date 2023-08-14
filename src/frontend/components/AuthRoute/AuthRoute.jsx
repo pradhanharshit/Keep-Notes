@@ -3,11 +3,7 @@ import { Navigate, Outlet } from "react-router-dom";
 
 const AuthRoute = () => {
   const { authToken } = useSelector((state) => state.auth);
-  return authToken !== "" ? (
-    <Navigate to="/landing" replace={true} />
-  ) : (
-    <Outlet />
-  );
+  return authToken !== null ? <Navigate to="/" replace={true} /> : <Outlet />;
 };
 
 export default AuthRoute;

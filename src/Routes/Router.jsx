@@ -14,15 +14,19 @@ import Trash from "../frontend/components/Trash/Trash";
 import Labels from "../frontend/components/Labels/Labels";
 import PageNotFound from "../frontend/Pages/PageNotFound/PageNotFound";
 import PrivateRoute from "../frontend/components/PrivateRoute/PrivateRoute";
-import AuthRoute from "../frontend/components/AuthRoute/AuthRoute";
 // import Layout from "../frontend/components/Layout/Layout";
+import AuthRoute from "../frontend/components/AuthRoute/AuthRoute";
 
 const Router = () => {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <>
         <Route path="*" element={<PageNotFound />} />
-        <Route path="/landing" element={<LandingPage />} />
+
+        <Route element={<AuthRoute />}>
+          <Route path="/landing" element={<LandingPage />} />
+          <Route path="/login" element={<Login />} />
+        </Route>
         <Route path="/" element={<App />}>
           <Route element={<PrivateRoute />}>
             <Route index element={<Home />} />
@@ -30,11 +34,6 @@ const Router = () => {
             <Route path="/labels" element={<Labels />} />
             <Route path="/trash" element={<Trash />} />
           </Route>
-        </Route>
-
-        <Route element={<AuthRoute />}>
-          <Route path="/login" element={<Login />} />
-          {/* <Route path="/signup" element={<Signup />} /> */}
         </Route>
       </>
     )

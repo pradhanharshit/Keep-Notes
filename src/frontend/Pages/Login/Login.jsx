@@ -108,13 +108,13 @@ const Login = () => {
             Login
           </button>
           <br />
-          <button
-            className="login-button px-8 py-2 bg-blue-400 rounded-2xl"
+          <input
             style={{ color: themeObject.text }}
+            type="submit"
+            className="login__button px-6 py-2 bg-blue-400 rounded-2xl"
+            value="Login with Test Credentials"
             onClick={testLoginHandler}
-          >
-            Test Login
-          </button>
+          />
 
           <p className="text-lg mt-4" style={{ color: themeObject.text }}>
             Dont have a account?{" "}
