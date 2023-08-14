@@ -1,9 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { loginHandler, signupHandler } from "../services/authService";
 
-// const user = JSON.parse(localStorage.getItem("user"));
-// const authToken = localStorage.getItem("token");
-
 const initialState = {
   user: JSON.parse(localStorage.getItem("user")),
   authToken: localStorage.getItem("token"),

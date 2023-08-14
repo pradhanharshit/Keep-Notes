@@ -70,7 +70,7 @@ export const loginHandler = function (schema, request) {
   // console.log("ran");
   try {
     const foundUser = schema.users.findBy({ email });
-    console.log("fu", foundUser);
+    // console.log("fu", foundUser);
     if (!foundUser) {
       // console.log("not found");
       return new Response(
@@ -84,6 +84,8 @@ export const loginHandler = function (schema, request) {
       const secret = "secret";
       const encodedToken = sign({ _id: foundUser._id, email }, secret);
       // console.log("yha2");
+      localStorage.setItem("user", JSON.stringify(foundUser._id));
+      localStorage.setItem("token", encodedToken);
       foundUser.password = undefined;
       // console.log("yha");
       return new Response(200, {}, { foundUser, encodedToken });

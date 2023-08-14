@@ -11,6 +11,7 @@ import { useState } from "react";
 import { ClickOutHandler } from "react-clickout-ts";
 import { logout } from "../../../store/authSlice";
 // import { useNavigate } from "react-router-dom";
+import { addNote } from "../../../store/notesSlice";
 
 const Navbar = () => {
   const { themeObject } = useSelector((state) => state.theme);
@@ -38,7 +39,10 @@ const Navbar = () => {
         />
       </div>
       <div className="flex space-x-6">
-        <PencilSquareIcon className="h-[35px] w-[35px] stroke-blue-400" />
+        <PencilSquareIcon
+          className="h-[35px] w-[35px] stroke-blue-400"
+          onClick={() => dispatch(addNote())}
+        />
         <ToggleButton />
         <div>
           <UserIcon

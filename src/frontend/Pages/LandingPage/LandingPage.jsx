@@ -4,6 +4,8 @@ import { useSelector } from "react-redux/es/hooks/useSelector";
 
 const LandingPage = () => {
   const { themeObject } = useSelector((state) => state.theme);
+  const user = JSON.parse(localStorage.getItem("user"));
+  console.log("land", user);
   return (
     <div
       className="landing-display h-[100vh]"

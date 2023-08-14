@@ -1,12 +1,21 @@
 import { useSelector } from "react-redux";
 import NoteCard from "../NoteCard/NoteCard";
+import NewNoteCard from "../NewNoteCard/NewNoteCard";
 // import samplenotes from "../../../samplenotes";
 
 const Home = () => {
   const { themeObject } = useSelector((state) => state.theme);
+  const { addNote } = useSelector((state) => state.notes);
 
   return (
     <>
+      {/* addnote */}
+      <div
+        className="w-[100%]"
+        style={{ display: addNote ? "flex" : "none", justifyContent: "center" }}
+      >
+        <NewNoteCard />
+      </div>
       <div
         className="home text-center"
         style={{
