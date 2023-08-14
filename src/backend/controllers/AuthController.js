@@ -2,8 +2,8 @@
 import { v4 as uuid } from "uuid";
 import { Response } from "miragejs";
 import { formatDate } from "../utils/authUtils";
-import sign from "jwt-encode";
 // const sign = require("jwt-encode");
+import sign from "jwt-encode";
 
 /**
  * All the routes related to Auth are present here.
@@ -43,7 +43,9 @@ export const signupHandler = function (schema, request) {
       trash: [],
     };
     const createdUser = schema.users.create(newUser);
+    // console.log("yha1");
     const encodedToken = sign({ _id, email }, process.env.REACT_APP_JWT_SECRET);
+    // console.log("yha2");
     return new Response(201, {}, { createdUser, encodedToken });
   } catch (error) {
     return new Response(
@@ -64,9 +66,13 @@ export const signupHandler = function (schema, request) {
 
 export const loginHandler = function (schema, request) {
   const { email, password } = JSON.parse(request.requestBody);
+  // console.log("email", email);
+  // console.log("ran");
   try {
     const foundUser = schema.users.findBy({ email });
+    console.log("fu", foundUser);
     if (!foundUser) {
+      // console.log("not found");
       return new Response(
         404,
         {},
@@ -74,13 +80,15 @@ export const loginHandler = function (schema, request) {
       );
     }
     if (password === foundUser.password) {
-      const encodedToken = sign(
-        { _id: foundUser._id, email },
-        process.env.REACT_APP_JWT_SECRET
-      );
+      // console.log("password matched");
+      const secret = "secret";
+      const encodedToken = sign({ _id: foundUser._id, email }, secret);
+      // console.log("yha2");
       foundUser.password = undefined;
+      // console.log("yha");
       return new Response(200, {}, { foundUser, encodedToken });
     }
+    // else console.log("pw not matched");
     return new Response(
       401,
       {},
