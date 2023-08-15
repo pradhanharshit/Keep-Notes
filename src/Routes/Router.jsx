@@ -16,6 +16,7 @@ import PageNotFound from "../frontend/Pages/PageNotFound/PageNotFound";
 import PrivateRoute from "../frontend/components/PrivateRoute/PrivateRoute";
 // import Layout from "../frontend/components/Layout/Layout";
 import AuthRoute from "../frontend/components/AuthRoute/AuthRoute";
+import { MockAPI } from "../frontend/Pages/Mockman/Mockman";
 
 const Router = () => {
   const router = createBrowserRouter(
@@ -30,6 +31,7 @@ const Router = () => {
         <Route path="/" element={<App />}>
           <Route element={<PrivateRoute />}>
             <Route index element={<Home />} />
+            <Route path="/mock" element={<MockAPI />} />
             <Route path="/archives" element={<Archives />} />
             <Route path="/labels" element={<Labels />} />
             <Route path="/trash" element={<Trash />} />
