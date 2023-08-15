@@ -1,15 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { addNote } from "../../../store/notesSlice";
-import { addNoteHandler } from "../../../services/notesService";
+import { addNoteHandler, getAllNotes } from "../../../services/notesService";
+// import { addNoteHandler } from "../../../Context/NotesContext";
 
 const NewNoteCard = () => {
   const { themeObject } = useSelector((state) => state.theme);
+  const { authToken } = useSelector((state) => state.auth);
 
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [label, setLabel] = useState("");
+  const [title, setTitle] = useState("hh");
+  const [content, setContent] = useState("s");
+  const [label, setLabel] = useState("s");
+  const [priority, setPriority] = useState("");
   const [labelArray, setLabelArray] = useState([]);
 
   const dispatch = useDispatch();
@@ -20,22 +23,31 @@ const NewNoteCard = () => {
     dispatch(addNote());
   };
 
-  const addNewNoteHandler = async () => {
-    const date = new Date();
-    let day = date.getDate();
-    let month = date.getMonth() + 1;
-    let year = date.getFullYear();
-    await addNoteHandler({
-      title: title,
-      body: content,
-      label: labelArray.concat(label),
-      priority: "",
-      pinned: false,
-      date: `${day}/${month}/${year}`,
-    });
-    toast.success("New note added");
-    discardHandler();
-  };
+  // const addNewNoteHandler = () => {
+  //   const date = new Date();
+  //   try {
+  //     // setAllFieldsRequired("");
+  //     // console.log("newnote", authToken);
+  //     const res = dispatch(
+  //       addNoteHandler(
+  //         {
+  // title: title,
+  // body: content,
+  // label: labelArray.concat(label),
+  // priority: priority,
+  // pinned: false,
+  // date: `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}/${date.getHours()}/${date.getMinutes()}/${date.getSeconds()}`,
+  //         },
+  //         authToken
+  //       )
+  //     );
+  //     // console.log(res);
+  //     toast.success("New note added");
+  //     discardHandler();
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }
 
   return (
     <div>
@@ -106,7 +118,20 @@ const NewNoteCard = () => {
                 toast.warning("All fields required !");
               } else {
                 setLabelArray(labelArray.concat(label));
-                addNewNoteHandler();
+                const date = new Date();
+                addNoteHandler(
+                  {
+                    title: title,
+                    body: content,
+                    label: labelArray.concat(label),
+                    priority: priority,
+                    pinned: false,
+                    date: `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}/${date.getHours()}/${date.getMinutes()}/${date.getSeconds()}`,
+                  },
+                  authToken
+                );
+                toast.success("New note added");
+                discardHandler();
               }
             }}
           >

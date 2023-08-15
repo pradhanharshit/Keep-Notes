@@ -44,7 +44,7 @@ export const signupHandler = function (schema, request) {
     };
     const createdUser = schema.users.create(newUser);
     // console.log("yha1");
-    const encodedToken = sign({ _id, email }, process.env.REACT_APP_JWT_SECRET);
+    const encodedToken = sign({ _id, email }, window.env.REACT_APP_JWT_SECRET);
     // console.log("yha2");
     return new Response(201, {}, { createdUser, encodedToken });
   } catch (error) {
@@ -81,8 +81,7 @@ export const loginHandler = function (schema, request) {
     }
     if (password === foundUser.password) {
       // console.log("password matched");
-      const secret = "secret";
-      const encodedToken = sign({ _id: foundUser._id, email }, secret);
+      const encodedToken = sign({ _id: foundUser._id, email }, "secret");
       // console.log("yha2");
       localStorage.setItem("user", JSON.stringify(foundUser._id));
       localStorage.setItem("token", encodedToken);

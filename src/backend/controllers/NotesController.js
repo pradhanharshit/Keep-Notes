@@ -33,7 +33,10 @@ export const getAllNotesHandler = function (schema, request) {
  * */
 
 export const createNoteHandler = function (schema, request) {
+  // console.log("yha pr aaya");
+  // console.log("req is", request);
   const user = requiresAuth.call(this, request);
+  // console.log("user", user);
   try {
     if (!user) {
       return new Response(
@@ -53,6 +56,7 @@ export const createNoteHandler = function (schema, request) {
     this.db.users.update({ _id: user._id }, user);
     return new Response(201, {}, { notes: user.notes });
   } catch (error) {
+    // console.log("this error");
     return new Response(
       500,
       {},

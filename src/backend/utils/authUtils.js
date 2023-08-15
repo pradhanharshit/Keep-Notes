@@ -1,14 +1,13 @@
-/* eslint-disable no-undef */
 import { Response } from "miragejs";
 import dayjs from "dayjs";
 import jwt_decode from "jwt-decode";
 
 export const requiresAuth = function (request) {
+  // console.log("try", request.requestHeaders.authorization);
   const encodedToken = request.requestHeaders.authorization;
-  const decodedToken = jwt_decode(
-    encodedToken,
-    process.env.REACT_APP_JWT_SECRET
-  );
+  // console.log("enc", encodedToken);
+  const decodedToken = jwt_decode(encodedToken, "secret");
+  // console.log("decoded token", decodedToken);
   if (decodedToken) {
     const user = this.db.users.findBy({ email: decodedToken.email });
     return user;
