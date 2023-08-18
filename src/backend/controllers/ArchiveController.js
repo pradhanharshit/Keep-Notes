@@ -31,6 +31,7 @@ export const getAllArchivedNotesHandler = function (schema, request) {
  * */
 
 export const deleteFromArchivesHandler = function (schema, request) {
+  // console.log("runned");
   const user = requiresAuth.call(this, request);
   if (!user) {
     return new Response(

@@ -1,4 +1,3 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 export const addNoteHandler = async (note, authToken) => {
@@ -80,6 +79,39 @@ export const getAllArchivedNotes = async (authToken) => {
     });
     return response;
   } catch (error) {
+    console.log(error);
+  }
+};
+
+export const restoreArchivedNote = async (note, authToken) => {
+  try {
+    const response = axios.post(
+      `api/archives/restore/${note._id}`,
+      {
+        note,
+      },
+      {
+        headers: {
+          authorization: authToken,
+        },
+      }
+    );
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deleteArchiveNote = async (note, authToken) => {
+  try {
+    console.log("im called");
+    const response = await axios.delete(`api/archives/delete/${note._id}`, {
+      headers: { authorization: authToken },
+    });
+    // console.log("error");
+    return response;
+  } catch (error) {
+    // console.log("this error");
     console.log(error);
   }
 };
