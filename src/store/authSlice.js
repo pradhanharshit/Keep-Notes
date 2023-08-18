@@ -2,7 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import { loginHandler, signupHandler } from "../services/authService";
 
 const initialState = {
-  user: JSON.parse(localStorage.getItem("user")),
+  user: {},
+  username: "",
   authToken: localStorage.getItem("token"),
 };
 
@@ -19,10 +20,8 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(loginHandler.fulfilled, (state, action) => {
-      state.user = {
-        username: action.payload.foundUser.firstname,
-        _id: action.payload.foundUser._id,
-      };
+      state.user = action.payload.foundUser;
+      state.username = state.user.firstName + " " + state.user.lastName;
       state.authToken = action.payload.encodedToken;
     });
     builder.addCase(signupHandler.fulfilled, (state, action) => {

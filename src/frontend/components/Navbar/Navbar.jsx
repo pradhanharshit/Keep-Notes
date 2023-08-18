@@ -16,10 +16,13 @@ import { Navigate } from "react-router-dom";
 
 const Navbar = () => {
   const { themeObject } = useSelector((state) => state.theme);
+  const { username } = useSelector((state) => state.auth);
   const [openFilter, setOpenFilter] = useState(false);
 
   // const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  // const userName = localStorage.getItem(JSON.parse("user")).f;
 
   return (
     <div
@@ -60,11 +63,15 @@ const Navbar = () => {
             <div className="relative">
               {openFilter && (
                 <div
-                  className="absolute right-0 p-2 rounded-2xl"
+                  className="absolute right-0 p-2 rounded-2xl w-fit text-center border-2 border-blue-400"
                   style={{ backgroundColor: themeObject.secondary }}
                 >
-                  {/* <p style={{ color: themeObject.text }}>{user.username}</p> */}
+                  <p style={{ color: themeObject.text }}>Hello!!</p>
+                  <p className="font-bold" style={{ color: themeObject.text }}>
+                    {username}
+                  </p>
                   <button
+                    className="py-1 px-2 bg-blue-400 m-2 rounded-xl"
                     onClick={() => dispatch(logout())}
                     style={{ color: themeObject.text }}
                   >
