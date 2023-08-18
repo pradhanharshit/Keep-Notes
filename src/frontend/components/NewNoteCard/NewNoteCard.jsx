@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import { addNote } from "../../../store/notesSlice";
+import { addNote, renderNewNote } from "../../../store/notesSlice";
 import { addNoteHandler, getAllNotes } from "../../../services/notesService";
 // import { addNoteHandler } from "../../../Context/NotesContext";
 
 const NewNoteCard = () => {
   const { themeObject } = useSelector((state) => state.theme);
   const { authToken } = useSelector((state) => state.auth);
+  const {} = useSelector((state) => state.notes);
 
   const [title, setTitle] = useState("hh");
   const [content, setContent] = useState("s");
@@ -22,32 +23,6 @@ const NewNoteCard = () => {
     setLabel("");
     dispatch(addNote());
   };
-
-  // const addNewNoteHandler = () => {
-  //   const date = new Date();
-  //   try {
-  //     // setAllFieldsRequired("");
-  //     // console.log("newnote", authToken);
-  //     const res = dispatch(
-  //       addNoteHandler(
-  //         {
-  // title: title,
-  // body: content,
-  // label: labelArray.concat(label),
-  // priority: priority,
-  // pinned: false,
-  // date: `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}/${date.getHours()}/${date.getMinutes()}/${date.getSeconds()}`,
-  //         },
-  //         authToken
-  //       )
-  //     );
-  //     // console.log(res);
-  //     toast.success("New note added");
-  //     discardHandler();
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // }
 
   return (
     <div>
@@ -130,6 +105,7 @@ const NewNoteCard = () => {
                   },
                   authToken
                 );
+                dispatch(renderNewNote());
                 toast.success("New note added");
                 discardHandler();
               }

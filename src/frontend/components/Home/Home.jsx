@@ -1,11 +1,34 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import NoteCard from "../NoteCard/NoteCard";
 import NewNoteCard from "../NewNoteCard/NewNoteCard";
-// import samplenotes from "../../../samplenotes";
+import { getAllNotes } from "../../../services/notesService";
+import { useEffect } from "react";
+import { addNotesToArray } from "../../../store/notesSlice";
 
 const Home = () => {
   const { themeObject } = useSelector((state) => state.theme);
-  const { addNote } = useSelector((state) => state.notes);
+  const { addNote, newNoteRender, mynotes } = useSelector(
+    (state) => state.notes
+  );
+  const { authToken } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  const getNotes = async () => {
+    const response = await getAllNotes(authToken);
+    // console.log(response.data);
+    // if (response.data.notes.length !== 0) {
+    dispatch(addNotesToArray(response.data.notes));
+    // }
+    // console.log("mynotes updated");
+    // console.log("getnotes res", response.data.notes);
+    return response.data;
+  };
+
+  useEffect(() => {
+    getNotes();
+  }, [newNoteRender]);
+
+  // console.log("mynotes", mynotes);
 
   return (
     <>
@@ -26,7 +49,13 @@ const Home = () => {
       </div>
 
       <div className="flex flex-col items-center m-5">
-        <NoteCard />
+        {mynotes.map((note) => {
+          return (
+            <div key={note._id}>
+              <NoteCard key={note._id} data={note} />
+            </div>
+          );
+        })}
       </div>
     </>
   );

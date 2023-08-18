@@ -9,12 +9,11 @@ import App from "../App";
 import LandingPage from "../frontend/Pages/LandingPage/LandingPage";
 import Login from "../frontend/Pages/Login/Login";
 import Home from "../frontend/components/Home/Home";
-import Archives from "../frontend/components/Archives/Archives";
+import Archive from "../frontend/Pages/Archive/Archive";
 import Trash from "../frontend/components/Trash/Trash";
 import Labels from "../frontend/components/Labels/Labels";
 import PageNotFound from "../frontend/Pages/PageNotFound/PageNotFound";
 import PrivateRoute from "../frontend/components/PrivateRoute/PrivateRoute";
-// import Layout from "../frontend/components/Layout/Layout";
 import AuthRoute from "../frontend/components/AuthRoute/AuthRoute";
 import { MockAPI } from "../frontend/Pages/Mockman/Mockman";
 
@@ -32,7 +31,7 @@ const Router = () => {
           <Route element={<PrivateRoute />}>
             <Route index element={<Home />} />
             <Route path="/mock" element={<MockAPI />} />
-            <Route path="/archives" element={<Archives />} />
+            <Route path="/archives" element={<Archive />} />
             <Route path="/labels" element={<Labels />} />
             <Route path="/trash" element={<Trash />} />
           </Route>

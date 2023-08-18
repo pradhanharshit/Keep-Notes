@@ -5,6 +5,7 @@ import {
   ArchiveBoxIcon,
   BookmarkIcon,
   TrashIcon,
+  TagIcon,
 } from "@heroicons/react/24/outline";
 import "./Sidebar.css";
 
@@ -24,7 +25,7 @@ const Sidebar = () => {
         </NavLink>
 
         <NavLink to="/labels" className="flex space-x-3 items-center mb-10">
-          <BookmarkIcon className="heroicon-outline h-[30px] w-[30px] fill-none"></BookmarkIcon>
+          <TagIcon className="heroicon-outline h-[30px] w-[30px] fill-none"></TagIcon>
           <p className="ressp text-xl">Labels</p>
         </NavLink>
 

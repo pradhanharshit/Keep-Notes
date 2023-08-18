@@ -7,4 +7,6 @@
 
 - authentication
 - made a basic login signup page
-- private routes
+- private
+
+newnoterender ek state bnani pdhegi jb bhi
