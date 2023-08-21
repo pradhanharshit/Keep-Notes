@@ -1,30 +1,22 @@
 import { useDispatch, useSelector } from "react-redux";
 import ToggleButton from "../ToggleButton/ToggleButton";
-import {
-  MagnifyingGlassIcon,
-  PencilSquareIcon,
-  UserIcon,
-} from "@heroicons/react/24/outline";
+import { PencilSquareIcon, UserIcon } from "@heroicons/react/24/outline";
 
 import "./Navbar.css";
 import { useState } from "react";
 import { ClickOutHandler } from "react-clickout-ts";
 import { logout } from "../../../store/authSlice";
-// import { useNavigate } from "react-router-dom";
 import { addNote } from "../../../store/notesSlice";
 import { useNavigate } from "react-router-dom";
+import Filter from "../Filter/Filter";
 
 const Navbar = () => {
   const { themeObject } = useSelector((state) => state.theme);
   const { username } = useSelector((state) => state.auth);
   const [openFilter, setOpenFilter] = useState(false);
-
-  // const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
-
-  // const userName = localStorage.getItem(JSON.parse("user")).f;
 
   return (
     <div
@@ -35,14 +27,8 @@ const Navbar = () => {
       }}
     >
       <h1 className="font-bold text-3xl text-blue-400">Keep Notes</h1>
-      <div className="search-container w-[21.5rem]">
-        <MagnifyingGlassIcon className="stroke-blue-400 search-icon h-[20px] w-[20px]" />
-        <input
-          type="text"
-          className="search-input rounded-3xl w-[100%]"
-          placeholder="Search..."
-          style={{ backgroundColor: themeObject.secondary }}
-        />
+      <div className="flex space-x-3 items-center">
+        <Filter />
       </div>
       <div className="flex space-x-6">
         <PencilSquareIcon
