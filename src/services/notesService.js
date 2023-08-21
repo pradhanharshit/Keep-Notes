@@ -1,5 +1,4 @@
-import axios from "axios";
-
+import { createAsyncThunk } import axios from "axios";
 export const addNoteHandler = async (note, authToken) => {
   try {
     const response = await axios.post(

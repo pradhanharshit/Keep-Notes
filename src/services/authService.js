@@ -5,7 +5,6 @@ export const loginHandler = createAsyncThunk(
   "auth/login",
   async ({ email, password, rememberme }) => {
     try {
-      console.log("res");
       const res = await axios.post("/api/auth/login", { email, password });
       if (rememberme) {
         localStorage.setItem(
