@@ -21,14 +21,14 @@ const App = () => {
         style={{ backgroundColor: themeObject.primary }}
       >
         <Sidebar />
-        <div className="layout-mid-left w-3/5">
+        <div className="layout-mid-left w-4/5">
           <Outlet />
         </div>
       </div>
       <div className="layout-footer">
         <Footer />
       </div>
-      <ToastContainer position="top-right" />
+      <ToastContainer position="bottom-right" />
     </div>
   );
 };
