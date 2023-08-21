@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import "./NoteCard.css";
 import { useSelector, useDispatch } from "react-redux";
+import { useState } from "react";
 import {
   PaperClipIcon,
   PencilIcon,
@@ -8,26 +9,38 @@ import {
   TrashIcon,
   TagIcon,
   ArchiveBoxIcon,
+  XCircleIcon,
 } from "@heroicons/react/24/outline";
-import { useState } from "react";
+import { ClickOutHandler } from "react-clickout-ts";
 import {
   editNoteHandler,
   archiveNoteHandler,
 } from "../../../services/notesService";
 import { renderNewNote, renderArchiveNote } from "../../../store/notesSlice";
 import { toast } from "react-toastify";
-import { ClickOutHandler } from "react-clickout-ts";
 
 const NoteCard = ({ data }) => {
+  const dispatch = useDispatch();
+
   const { themeObject } = useSelector((state) => state.theme);
+  const { authToken } = useSelector((state) => state.auth);
+
   const [edit, setEdit] = useState(false);
   const [editTitle, setEditTitle] = useState(data.title);
   const [editContent, setEditContent] = useState(data.body);
-  const dispatch = useDispatch();
-  const { authToken } = useSelector((state) => state.auth);
 
   const [priorityBoxOpen, setPriorityBoxOpen] = useState(false);
   const [priorityValue, setPriorityValue] = useState("");
+
+  const [addTagOpen, setaddTagOpen] = useState(false);
+  const [addTag, setAddTag] = useState("");
+
+  const removeTag = (tag) => {
+    // console.log("tag", tag);
+    const removedTagArray = data.tags.filter((t) => t !== tag);
+    // console.log("removedTagArray", removedTagArray);
+    return removedTagArray;
+  };
 
   return (
     <div key={data.id}>
@@ -76,7 +89,7 @@ const NoteCard = ({ data }) => {
                 </div>
               </div>
             )}
-            <PaperClipIcon className="h-[25px] w-[25px]" />
+            <PaperClipIcon className="h-[25px] w-[25px] hover:scale-125" />
           </header>
           <div
             className="w-100% border-t-2 m-4"
@@ -104,9 +117,10 @@ const NoteCard = ({ data }) => {
               <p>{data.body}</p>
             </main>
           )}
+
           {edit === true ? (
             <button
-              className="bg-blue-400 py-2 px-4 rounded-xl
+              className="bg-blue-400 py-2 px-4 rounded-xl mb-2
               "
               style={{ color: themeObject.color }}
               onClick={() => {
@@ -130,34 +144,74 @@ const NoteCard = ({ data }) => {
               Save
             </button>
           ) : null}
+
           <div
             className="w-100% border-t-2 m-4"
-            style={{ color: themeObject.text }}
+            style={{ borderColor: themeObject.text }}
           ></div>
+
+          {edit === false && (
+            <div className="flex space-x-2 flex-wrap mb-4">
+              {data.tags.map((tag, index) => {
+                return (
+                  <div
+                    className="p-2 rounded-xl flex space-x-2 items-center"
+                    key={index}
+                    style={{ backgroundColor: themeObject.primary }}
+                  >
+                    <p
+                      className="font-bold"
+                      style={{ color: themeObject.text }}
+                    >
+                      {tag}
+                    </p>
+                    <XCircleIcon
+                      className="h-[25px] w-[25px]"
+                      onClick={() => {
+                        const getTagArray = removeTag(tag);
+                        editNoteHandler(
+                          {
+                            ...data,
+                            tags: [...getTagArray],
+                          },
+                          authToken
+                        );
+                        dispatch(renderNewNote());
+                      }}
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          )}
+
           <footer>
             <div className="flex justify-around">
-              <p>created at - {data.date.slice(0, 9)}</p>
+              <p>Created on - {data.date.slice(0, 9)}</p>
               <PencilIcon
-                className="h-[25px] w-[25px]"
+                className="h-[25px] w-[25px] hover:scale-125"
                 onClick={() => setEdit(!edit)}
               />
 
               <div className="relative">
                 <ExclamationCircleIcon
-                  className="h-[25px] w-[25px]"
+                  className="h-[25px] w-[25px] hover:scale-125"
                   onClick={() => {
-                    setPriorityBoxOpen(!priorityBoxOpen);
+                    if (edit === false) {
+                      setPriorityBoxOpen(!priorityBoxOpen);
+                    } else {
+                      toast.warning("You are in edit node mode!");
+                    }
                   }}
                 />
 
                 <ClickOutHandler
                   onClickOut={() => {
-                    console.log("called");
                     setPriorityBoxOpen(false);
                   }}
                 >
                   <div>
-                    {priorityBoxOpen && edit === false && (
+                    {priorityBoxOpen && (
                       <div
                         className="flex flex-col space-y-3 absolute w-max mt-2 p-4 rounded-2xl border-2 border-blue-400"
                         style={{ backgroundColor: themeObject.secondary }}
@@ -243,17 +297,75 @@ const NoteCard = ({ data }) => {
               </div>
 
               <ArchiveBoxIcon
-                className="h-[25px] w-[25px]"
+                className="h-[25px] w-[25px] hover:scale-125"
                 onClick={() => {
-                  archiveNoteHandler(data, authToken);
-                  dispatch(renderArchiveNote());
-                  dispatch(renderNewNote());
-                  toast.success("Note Archived !");
+                  if (edit === false) {
+                    archiveNoteHandler(data, authToken);
+                    dispatch(renderArchiveNote());
+                    dispatch(renderNewNote());
+                    toast.success("Note Archived !");
+                  } else {
+                    toast.warning("You are in edit node mode!");
+                  }
                 }}
               />
 
-              <TagIcon className="h-[25px] w-[25px]" />
-              <TrashIcon className="h-[25px] w-[25px]" />
+              <div className="relative">
+                <TagIcon
+                  className="h-[25px] w-[25px] hover:scale-125"
+                  onClick={() => {
+                    setaddTagOpen(!addTagOpen);
+                  }}
+                />
+                <ClickOutHandler
+                  onClickOut={() => {
+                    setaddTagOpen(false);
+                  }}
+                >
+                  <div>
+                    {addTagOpen && (
+                      <div
+                        className="absolute p-3 border-2 border-blue-400 rounded-2xl text-center"
+                        style={{ backgroundColor: themeObject.secondary }}
+                      >
+                        <input
+                          className="rounded-xl p-2"
+                          type="text"
+                          value={addTag}
+                          placeholder="Add label"
+                          style={{ backgroundColor: themeObject.primary }}
+                          onChange={(e) => {
+                            setAddTag(e.target.value);
+                          }}
+                        />
+                        <button
+                          className="bg-blue-400 px-2 py-1 rounded-xl mt-2"
+                          onClick={() => {
+                            editNoteHandler(
+                              {
+                                ...data,
+                                tags: [...data.tags, addTag],
+                              },
+                              authToken
+                            );
+
+                            dispatch(renderNewNote());
+                            toast.success("Tag Added !");
+                            setaddTagOpen(false);
+                            setAddTag("");
+                          }}
+                          style={{
+                            color: themeObject.text,
+                          }}
+                        >
+                          Add
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                </ClickOutHandler>
+              </div>
+              <TrashIcon className="h-[25px] w-[25px] hover:scale-125" />
             </div>
           </footer>
         </div>
