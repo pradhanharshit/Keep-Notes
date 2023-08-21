@@ -3,7 +3,7 @@ import NoteCard from "../NoteCard/NoteCard";
 import NewNoteCard from "../NewNoteCard/NewNoteCard";
 import { getAllNotes } from "../../../services/notesService";
 import { useEffect } from "react";
-import { addNotesToArray } from "../../../store/notesSlice";
+import { addNotesToArray, changeLabelsArray } from "../../../store/notesSlice";
 
 const Home = () => {
   const { themeObject } = useSelector((state) => state.theme);
@@ -15,20 +15,19 @@ const Home = () => {
 
   const getNotes = async () => {
     const response = await getAllNotes(authToken);
-    // console.log(response.data);
-    // if (response.data.notes.length !== 0) {
     dispatch(addNotesToArray(response.data.notes));
-    // }
-    // console.log("mynotes updated");
-    // console.log("getnotes res", response.data.notes);
     return response.data;
   };
 
-  useEffect(() => {
-    getNotes();
-  }, [newNoteRender]);
+  const updateLabels = async () => {
+    await getNotes();
+    dispatch(changeLabelsArray());
+  };
 
-  // console.log("mynotes", mynotes);
+  useEffect(() => {
+    updateLabels();
+    // console.log("changed");
+  }, [newNoteRender]);
 
   return (
     <>
@@ -48,7 +47,7 @@ const Home = () => {
         <h1 className="text-3xl font-semibold text-blue-400">My Notes</h1>
       </div>
 
-      <div className="flex flex-col items-center m-5">
+      <div className="flex space-x-1 flex-wrap items-center m-5">
         {mynotes.map((note) => {
           return (
             <div key={note._id}>
