@@ -12,7 +12,7 @@ import { ClickOutHandler } from "react-clickout-ts";
 import { logout } from "../../../store/authSlice";
 // import { useNavigate } from "react-router-dom";
 import { addNote } from "../../../store/notesSlice";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const { themeObject } = useSelector((state) => state.theme);
@@ -21,6 +21,8 @@ const Navbar = () => {
 
   // const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
 
   // const userName = localStorage.getItem(JSON.parse("user")).f;
 
@@ -46,9 +48,9 @@ const Navbar = () => {
         <PencilSquareIcon
           className="h-[35px] w-[35px] stroke-blue-400"
           onClick={() => {
-            <Navigate to="/" />;
             dispatch(addNote());
-            // console.log("called");
+            navigate("/");
+            console.log("called");
           }}
         />
         <ToggleButton />
