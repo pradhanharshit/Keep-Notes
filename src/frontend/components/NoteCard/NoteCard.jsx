@@ -245,12 +245,13 @@ const NoteCard = ({ data }) => {
                             id="medium-priority"
                             value="medium-priority"
                             onChange={(e) => setPriorityValue(e.target.value)}
+                            checked={priorityValue === "medium-priority"}
                           />
                           <label
-                            className="priority__label mb-4"
-                            htmlFor="high-priority"
+                            className="priority__label"
+                            htmlFor="medium-priority"
                             style={{ color: themeObject.text }}
-                            onClick={() => setPriorityValue("high-priority")}
+                            onClick={() => setPriorityValue("medium-priority")}
                           >
                             Medium Priority
                           </label>
@@ -261,15 +262,16 @@ const NoteCard = ({ data }) => {
                             className="priority"
                             type="radio"
                             name="priority"
-                            id="Low-priority"
-                            value="Low-priority"
+                            id="low-priority"
+                            value="low-priority"
+                            checked={priorityValue === "low-priority"}
                             onChange={(e) => setPriorityValue(e.target.value)}
                           />
                           <label
                             className="priority__label"
-                            htmlFor="high-priority"
+                            htmlFor="ligh-priority"
                             style={{ color: themeObject.text }}
-                            onClick={() => setPriorityValue("high-priority")}
+                            onClick={() => setPriorityValue("low-priority")}
                           >
                             Low Priority
                           </label>
