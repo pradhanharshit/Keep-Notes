@@ -1,20 +1,16 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { addNote, renderNewNote } from "../../../store/notesSlice";
-import { addNoteHandler, getAllNotes } from "../../../services/notesService";
-// import { addNoteHandler } from "../../../Context/NotesContext";
+import { addNoteHandler } from "../../../services/notesService";
 
 const NewNoteCard = () => {
   const { themeObject } = useSelector((state) => state.theme);
   const { authToken } = useSelector((state) => state.auth);
-  const {} = useSelector((state) => state.notes);
 
   const [title, setTitle] = useState("hh");
   const [content, setContent] = useState("s");
   const [label, setLabel] = useState("s");
-  const [priority, setPriority] = useState("");
-  const [labelArray, setLabelArray] = useState([]);
 
   const dispatch = useDispatch();
   const discardHandler = () => {
@@ -89,17 +85,16 @@ const NewNoteCard = () => {
             className="w-[30%] py-2 bg-blue-400 rounded-2xl mb-3"
             style={{ color: themeObject.text }}
             onClick={() => {
-              if (title === "" || content === "" || label === "") {
-                toast.warning("All fields required !");
+              if (title === "" || content === "") {
+                toast.warning("Title and Body can't be empty !");
               } else {
-                setLabelArray(labelArray.concat(label));
                 const date = new Date();
                 addNoteHandler(
                   {
                     title: title,
                     body: content,
-                    label: labelArray.concat(label),
-                    priority: priority,
+                    tags: [label],
+                    priority: "",
                     pinned: false,
                     date: `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}/${date.getHours()}/${date.getMinutes()}/${date.getSeconds()}`,
                   },
