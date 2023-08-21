@@ -15,7 +15,7 @@ const Archives = ({ data }) => {
   return (
     <>
       <div
-        className="w-[60%] rounded-2xl p-3 m-5"
+        className="w-[25rem] rounded-2xl p-3 m-5"
         style={{
           color: themeObject.text,
           backgroundColor: themeObject.secondary,
