@@ -54,7 +54,7 @@ const Labels = () => {
                     {mynotes
                       .filter((notes) => notes.tags.includes(label))
                       .map((note) => {
-                        return <NoteCard key={Node._id} data={note} />;
+                        return <NoteCard key={note._id} data={note} />;
                       })}
                   </div>
                 </div>

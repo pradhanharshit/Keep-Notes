@@ -1,17 +1,18 @@
 /* eslint-disable react/prop-types */
+import { useSelector, useDispatch } from "react-redux";
 import { ArrowPathIcon, TrashIcon } from "@heroicons/react/24/outline";
-import { useDispatch, useSelector } from "react-redux";
 import {
-  restoreArchivedNote,
-  deleteArchiveNote,
+  restoreTrashedNote,
+  deleteTrashNote,
 } from "../../../services/notesService";
-import { renderArchiveNote, renderNewNote } from "../../../store/notesSlice";
+import { renderTrashNote, renderNewNote } from "../../../store/notesSlice";
 import { toast } from "react-toastify";
 
-const Archives = ({ data }) => {
+const TrashNoteCard = ({ data }) => {
   const { themeObject } = useSelector((state) => state.theme);
   const { authToken } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+
   return (
     <>
       <div
@@ -39,20 +40,20 @@ const Archives = ({ data }) => {
           <span>Created on - {data.date.slice(0, 9)}</span>
 
           <ArrowPathIcon
-            className="h-[30px] w-[30px]"
+            className="h-[30px] w-[30px] hover:scale-125"
             onClick={() => {
-              restoreArchivedNote(data, authToken);
-              dispatch(renderArchiveNote());
+              restoreTrashedNote(data, authToken);
+              dispatch(renderTrashNote());
               dispatch(renderNewNote());
               toast.success("Note restored!");
             }}
           />
 
           <TrashIcon
-            className="h-[30px] w-[30px]"
+            className="h-[30px] w-[30px] hover:scale-125"
             onClick={() => {
-              deleteArchiveNote(data, authToken);
-              dispatch(renderArchiveNote());
+              deleteTrashNote(data, authToken);
+              dispatch(renderTrashNote());
               toast.success("Note deleted!");
             }}
           />
@@ -62,4 +63,4 @@ const Archives = ({ data }) => {
   );
 };
 
-export default Archives;
+export default TrashNoteCard;

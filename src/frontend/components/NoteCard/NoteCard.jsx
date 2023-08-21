@@ -15,6 +15,7 @@ import { ClickOutHandler } from "react-clickout-ts";
 import {
   editNoteHandler,
   archiveNoteHandler,
+  trashNoteHandler,
 } from "../../../services/notesService";
 import { renderNewNote, renderArchiveNote } from "../../../store/notesSlice";
 import { toast } from "react-toastify";
@@ -200,7 +201,7 @@ const NoteCard = ({ data }) => {
                     if (edit === false) {
                       setPriorityBoxOpen(!priorityBoxOpen);
                     } else {
-                      toast.warning("You are in edit node mode!");
+                      toast.warning("You are in edit note mode!");
                     }
                   }}
                 />
@@ -305,7 +306,7 @@ const NoteCard = ({ data }) => {
                     dispatch(renderNewNote());
                     toast.success("Note Archived !");
                   } else {
-                    toast.warning("You are in edit node mode!");
+                    toast.warning("You are in edit note mode!");
                   }
                 }}
               />
@@ -365,7 +366,19 @@ const NoteCard = ({ data }) => {
                   </div>
                 </ClickOutHandler>
               </div>
-              <TrashIcon className="h-[25px] w-[25px] hover:scale-125" />
+              <TrashIcon
+                className="h-[25px] w-[25px] hover:scale-125"
+                onClick={() => {
+                  if (edit === false) {
+                    trashNoteHandler(data, authToken);
+                    // dispatch(renderArchiveNote());
+                    dispatch(renderNewNote());
+                    toast.success("Note Trashed !");
+                  } else {
+                    toast.warning("You are in edit note mode!");
+                  }
+                }}
+              />
             </div>
           </footer>
         </div>

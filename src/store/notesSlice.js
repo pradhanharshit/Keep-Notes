@@ -11,6 +11,7 @@ const notesSlice = createSlice({
     newNoteRender: true,
     noteAdded: true,
     archiveNoteRender: true,
+    trashNoteRender: true,
   },
   reducers: {
     addNote(state) {
@@ -25,6 +26,9 @@ const notesSlice = createSlice({
     },
     renderArchiveNote(state) {
       state.archiveNoteRender = !state.archiveNoteRender;
+    },
+    renderTrashNote(state) {
+      state.trashNoteRender = !state.trashNoteRender;
     },
     addArchivesNotesToArray(state, action) {
       state.archivedNotes = [...action.payload];
@@ -55,5 +59,7 @@ export const {
   renderArchiveNote,
   addArchivesNotesToArray,
   changeLabelsArray,
+  addTrashedNotesToArray,
+  renderTrashNote,
 } = notesSlice.actions;
 export default notesSlice.reducer;

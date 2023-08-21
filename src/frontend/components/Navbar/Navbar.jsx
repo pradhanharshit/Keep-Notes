@@ -50,7 +50,6 @@ const Navbar = () => {
           onClick={() => {
             dispatch(addNote());
             navigate("/");
-            console.log("called");
           }}
         />
         <ToggleButton />

@@ -114,3 +114,64 @@ export const deleteArchiveNote = async (note, authToken) => {
     console.log(error);
   }
 };
+
+// trash services
+
+export const trashNoteHandler = async (note, authToken) => {
+  try {
+    await axios.post(
+      `api/notes/trash/${note._id}`,
+      { note },
+      {
+        headers: {
+          authorization: authToken,
+        },
+      }
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getAllTrashedNotes = async (authToken) => {
+  try {
+    const response = await axios.get("api/trash", {
+      headers: {
+        authorization: authToken,
+      },
+    });
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const restoreTrashedNote = async (note, authToken) => {
+  try {
+    await axios.post(
+      `api/trash/restore/${note._id}`,
+      {
+        note,
+      },
+      {
+        headers: {
+          authorization: authToken,
+        },
+      }
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deleteTrashNote = async (note, authToken) => {
+  try {
+    axios.delete(`api/trash/delete/${note._id}`, {
+      headers: {
+        authorization: authToken,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
