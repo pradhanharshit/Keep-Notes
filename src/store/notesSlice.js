@@ -4,6 +4,7 @@ const notesSlice = createSlice({
   name: "notes",
   initialState: {
     mynotes: [],
+    filteredNotes: [],
     archivedNotes: [],
     trashedNotes: [],
     labelsArray: [],
@@ -12,6 +13,10 @@ const notesSlice = createSlice({
     noteAdded: true,
     archiveNoteRender: true,
     trashNoteRender: true,
+    dateSort: "",
+    priorityFilter: "",
+    searchFilter: "",
+    labelFilter: "",
   },
   reducers: {
     addNote(state) {
@@ -49,6 +54,21 @@ const notesSlice = createSlice({
         (item, index) => state.labelsArray.indexOf(item) === index
       );
     },
+    addFilteredNotes(state, action) {
+      state.filteredNotes = [...action.payload];
+    },
+    setDateSort(state, action) {
+      state.dateSort = action.payload;
+    },
+    setPriorityFilter(state, action) {
+      state.priorityFilter = action.payload;
+    },
+    setlabelFilter(state, action) {
+      state.labelFilter = action.payload;
+    },
+    setSearchFilter(state, action) {
+      state.searchFilter = action.payload;
+    },
   },
 });
 
@@ -61,5 +81,10 @@ export const {
   changeLabelsArray,
   addTrashedNotesToArray,
   renderTrashNote,
+  addFilteredNotes,
+  setDateSort,
+  setPriorityFilter,
+  setSearchFilter,
+  setlabelFilter,
 } = notesSlice.actions;
 export default notesSlice.reducer;

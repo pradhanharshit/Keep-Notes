@@ -90,7 +90,7 @@ const NoteCard = ({ data }) => {
                 </div>
               </div>
             )}
-            <PaperClipIcon className="h-[25px] w-[25px] hover:scale-125" />
+            <PaperClipIcon className="h-[25px] w-[25px] hover:scale-125 cursor-pointer" />
           </header>
           <div
             className="w-100% border-t-2 m-4"
@@ -167,7 +167,7 @@ const NoteCard = ({ data }) => {
                       {tag}
                     </p>
                     <XCircleIcon
-                      className="h-[25px] w-[25px]"
+                      className="h-[25px] w-[25px] cursor-pointer"
                       onClick={() => {
                         const getTagArray = removeTag(tag);
                         editNoteHandler(
@@ -188,15 +188,15 @@ const NoteCard = ({ data }) => {
 
           <footer>
             <div className="flex justify-around">
-              <p>Created on - {data.date.slice(0, 9)}</p>
+              <p>Created on - {data.date.slice(0, 10)}</p>
               <PencilIcon
-                className="h-[25px] w-[25px] hover:scale-125"
+                className="h-[25px] w-[25px] hover:scale-125 cursor-pointer"
                 onClick={() => setEdit(!edit)}
               />
 
               <div className="relative">
                 <ExclamationCircleIcon
-                  className="h-[25px] w-[25px] hover:scale-125"
+                  className="h-[25px] w-[25px] hover:scale-125 cursor-pointer"
                   onClick={() => {
                     if (edit === false) {
                       setPriorityBoxOpen(!priorityBoxOpen);
@@ -300,7 +300,7 @@ const NoteCard = ({ data }) => {
               </div>
 
               <ArchiveBoxIcon
-                className="h-[25px] w-[25px] hover:scale-125"
+                className="h-[25px] w-[25px] hover:scale-125 cursor-pointer"
                 onClick={() => {
                   if (edit === false) {
                     archiveNoteHandler(data, authToken);
@@ -315,7 +315,7 @@ const NoteCard = ({ data }) => {
 
               <div className="relative">
                 <TagIcon
-                  className="h-[25px] w-[25px] hover:scale-125"
+                  className="h-[25px] w-[25px] hover:scale-125 cursor-pointer"
                   onClick={() => {
                     setaddTagOpen(!addTagOpen);
                   }}
@@ -369,7 +369,7 @@ const NoteCard = ({ data }) => {
                 </ClickOutHandler>
               </div>
               <TrashIcon
-                className="h-[25px] w-[25px] hover:scale-125"
+                className="h-[25px] w-[25px] hover:scale-125 cursor-pointer"
                 onClick={() => {
                   if (edit === false) {
                     trashNoteHandler(data, authToken);

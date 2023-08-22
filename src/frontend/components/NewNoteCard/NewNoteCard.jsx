@@ -88,7 +88,32 @@ const NewNoteCard = () => {
               if (title === "" || content === "") {
                 toast.warning("Title and Body can't be empty !");
               } else {
-                const date = new Date();
+                const dateObj = new Date();
+                const date =
+                  dateObj.getDate() < 10
+                    ? "0" + `${dateObj.getDate()}`
+                    : `${dateObj.getDate()}`;
+                const month =
+                  dateObj.getMonth() < 10
+                    ? "0" + `${dateObj.getMonth()}`
+                    : `${dateObj.getMonth()}`;
+                const year =
+                  dateObj.getFullYear() < 10
+                    ? "0" + `${dateObj.getFullYear()}`
+                    : `${dateObj.getFullYear()}`;
+                const hours =
+                  dateObj.getHours() < 10
+                    ? "0" + `${dateObj.getHours()}`
+                    : `${dateObj.getHours()}`;
+                const minutes =
+                  dateObj.getMinutes() < 10
+                    ? "0" + `${dateObj.getMinutes()}`
+                    : `${dateObj.getMinutes()}`;
+                const seconds =
+                  dateObj.getDate() < 10
+                    ? "0" + `${dateObj.getDate()}`
+                    : `${dateObj.getDate()}`;
+
                 addNoteHandler(
                   {
                     title: title,
@@ -96,7 +121,7 @@ const NewNoteCard = () => {
                     tags: [label],
                     priority: "",
                     pinned: false,
-                    date: `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}/${date.getHours()}/${date.getMinutes()}/${date.getSeconds()}`,
+                    date: `${date}/${month}/${year}/${hours}/${minutes}/${seconds}`,
                   },
                   authToken
                 );
