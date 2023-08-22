@@ -8,9 +8,9 @@ const NewNoteCard = () => {
   const { themeObject } = useSelector((state) => state.theme);
   const { authToken } = useSelector((state) => state.auth);
 
-  const [title, setTitle] = useState("hh");
-  const [content, setContent] = useState("s");
-  const [label, setLabel] = useState("s");
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [label, setLabel] = useState("");
 
   const dispatch = useDispatch();
   const discardHandler = () => {
