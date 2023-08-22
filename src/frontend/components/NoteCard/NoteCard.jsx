@@ -90,7 +90,32 @@ const NoteCard = ({ data }) => {
                 </div>
               </div>
             )}
-            <PaperClipIcon className="h-[25px] w-[25px] hover:scale-125 cursor-pointer" />
+            <div
+              className="p-2 rounded-full"
+              style={{
+                backgroundColor: data.pinned
+                  ? themeObject.primary
+                  : themeObject.secondary,
+                border: data.pinned ? "2px solid rgb(96 165 250)" : "none",
+              }}
+            >
+              <PaperClipIcon
+                className="h-[25px] w-[25px] hover:scale-125 cursor-pointer"
+                onClick={() => {
+                  editNoteHandler(
+                    {
+                      ...data,
+                      pinned: !data.pinned,
+                    },
+                    authToken
+                  );
+                  dispatch(renderNewNote());
+                  if (data.pinned === true) {
+                    toast.success("Note Unpinned!");
+                  } else toast.success("Note Pinned!");
+                }}
+              />
+            </div>
           </header>
           <div
             className="w-100% border-t-2 m-4"
@@ -158,7 +183,10 @@ const NoteCard = ({ data }) => {
                   <div
                     className="p-2 rounded-xl flex space-x-2 items-center"
                     key={index}
-                    style={{ backgroundColor: themeObject.primary }}
+                    style={{
+                      backgroundColor: themeObject.primary,
+                      border: "2px solid rgb(96 165 250)",
+                    }}
                   >
                     <p
                       className="font-bold"
