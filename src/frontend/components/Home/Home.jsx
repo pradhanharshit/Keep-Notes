@@ -47,14 +47,48 @@ const Home = () => {
         <h1 className="text-3xl font-semibold text-blue-400">My Notes</h1>
       </div>
 
-      <div className="flex space-x-1 flex-wrap items-center m-5">
-        {filteredNotes.map((note) => {
-          return (
-            <div key={note._id}>
-              <NoteCard key={note._id} data={note} />
-            </div>
-          );
-        })}
+      <div
+        style={{
+          display:
+            filteredNotes.filter((note) => note.pinned === true).length > 0
+              ? "block"
+              : "none",
+        }}
+      >
+        <p className="text-xl text-blue-400 text-center">Pinned Notes</p>
+        <div className="flex space-x-1 flex-wrap items-center m-5">
+          {filteredNotes
+            .filter((note) => note.pinned === true)
+            .map((note) => {
+              return (
+                <div key={note._id}>
+                  <NoteCard data={note} />
+                </div>
+              );
+            })}
+        </div>
+      </div>
+
+      <div
+        style={{
+          display:
+            filteredNotes.filter((note) => note.pinned === false).length > 0
+              ? "block"
+              : "none",
+        }}
+      >
+        <p className="text-xl text-blue-400 text-center">Unpinned Notes</p>
+        <div className="flex space-x-1 flex-wrap items-center m-5">
+          {filteredNotes
+            .filter((note) => note.pinned === false)
+            .map((note) => {
+              return (
+                <div key={note._id}>
+                  <NoteCard data={note} />
+                </div>
+              );
+            })}
+        </div>
       </div>
     </>
   );
