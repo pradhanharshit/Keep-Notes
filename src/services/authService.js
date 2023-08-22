@@ -25,16 +25,19 @@ export const loginHandler = createAsyncThunk(
 
 export const signupHandler = createAsyncThunk(
   "auth/signup",
-  async ({ username, password, firstName, lastName }) => {
+  async ({ email, password, firstName, lastName }) => {
+    console.log("try");
     try {
       const res = await axios.post("/api/auth/signup", {
-        username,
+        email,
         password,
         firstName,
         lastName,
       });
+      console.log(res.data);
       return res.data;
     } catch (err) {
+      console.log("yha");
       console.log(err);
     }
   }

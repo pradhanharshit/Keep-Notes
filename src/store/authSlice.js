@@ -19,18 +19,26 @@ const authSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(loginHandler.fulfilled, (state, action) => {
-      state.user = action.payload.foundUser;
-      state.username = state.user.firstName + " " + state.user.lastName;
-      state.authToken = action.payload.encodedToken;
-    });
-    builder.addCase(signupHandler.fulfilled, (state, action) => {
-      state.user = {
-        username: action.payload.createdUser.firstname,
-        _id: action.payload.createdUser._id,
-      };
-      state.authToken = action.payload.encodedToken;
-    });
+    builder
+      .addCase(loginHandler.fulfilled, (state, action) => {
+        state.user = action.payload.foundUser;
+        state.username = state.user.firstName + " " + state.user.lastName;
+        state.authToken = action.payload.encodedToken;
+      })
+      .addCase(loginHandler.pending, () => {
+        console.log("Invalid username or password");
+      });
+    builder
+      .addCase(signupHandler.fulfilled, (state, action) => {
+        state.user = {
+          username: action.payload.createdUser.firstname,
+          _id: action.payload.createdUser._id,
+        };
+        state.authToken = action.payload.encodedToken;
+      })
+      .addCase(signupHandler.pending, () => {
+        console.log("User already exists");
+      });
   },
 });
 
