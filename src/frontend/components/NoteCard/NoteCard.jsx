@@ -206,6 +206,7 @@ const NoteCard = ({ data }) => {
                           authToken
                         );
                         dispatch(renderNewNote());
+                        toast.success("Label Removed !");
                       }}
                     />
                   </div>
@@ -381,7 +382,7 @@ const NoteCard = ({ data }) => {
                             );
 
                             dispatch(renderNewNote());
-                            toast.success("Tag Added !");
+                            toast.success("Label Added !");
                             setaddTagOpen(false);
                             setAddTag("");
                           }}
