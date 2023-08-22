@@ -55,7 +55,7 @@ const notesSlice = createSlice({
       );
     },
     addFilteredNotes(state, action) {
-      state.filteredNotes = [...action.payload];
+      state.filteredNotes = action.payload;
     },
     setDateSort(state, action) {
       state.dateSort = action.payload;

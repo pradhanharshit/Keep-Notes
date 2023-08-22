@@ -7,7 +7,7 @@ import { addNotesToArray, changeLabelsArray } from "../../../store/notesSlice";
 
 const Home = () => {
   const { themeObject } = useSelector((state) => state.theme);
-  const { addNote, newNoteRender, mynotes } = useSelector(
+  const { addNote, newNoteRender, filteredNotes } = useSelector(
     (state) => state.notes
   );
   const { authToken } = useSelector((state) => state.auth);
@@ -48,7 +48,7 @@ const Home = () => {
       </div>
 
       <div className="flex space-x-1 flex-wrap items-center m-5">
-        {mynotes.map((note) => {
+        {filteredNotes.map((note) => {
           return (
             <div key={note._id}>
               <NoteCard key={note._id} data={note} />

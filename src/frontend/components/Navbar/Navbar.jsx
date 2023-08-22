@@ -7,7 +7,7 @@ import { useState } from "react";
 import { ClickOutHandler } from "react-clickout-ts";
 import { logout } from "../../../store/authSlice";
 import { addNote } from "../../../store/notesSlice";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Filter from "../Filter/Filter";
 
 const Navbar = () => {
@@ -26,13 +26,15 @@ const Navbar = () => {
         color: themeObject.text,
       }}
     >
-      <h1 className="font-bold text-3xl text-blue-400">Keep Notes</h1>
+      <Link to="/">
+        <h1 className="font-bold text-3xl text-blue-400">Keep Notes</h1>
+      </Link>
       <div className="flex space-x-3 items-center">
         <Filter />
       </div>
       <div className="flex space-x-6">
         <PencilSquareIcon
-          className="h-[35px] w-[35px] stroke-blue-400"
+          className="h-[35px] w-[35px] stroke-blue-400 cursor-pointer"
           onClick={() => {
             dispatch(addNote());
             navigate("/");
@@ -41,7 +43,7 @@ const Navbar = () => {
         <ToggleButton />
         <div>
           <UserIcon
-            className="h-[35px] w-[35px] stroke-blue-400"
+            className="h-[35px] w-[35px] stroke-blue-400 cursor-pointer"
             onClick={() => {
               setOpenFilter(!openFilter);
             }}
