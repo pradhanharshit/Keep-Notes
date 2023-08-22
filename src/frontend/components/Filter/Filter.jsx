@@ -13,6 +13,7 @@ import {
   setlabelFilter,
 } from "../../../store/notesSlice";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Filter = () => {
   const { themeObject } = useSelector((state) => state.theme);
@@ -84,6 +85,7 @@ const Filter = () => {
     dispatch(setPriorityFilter(""));
     setOpenSort(false);
     dispatch(addFilteredNotes(mynotes));
+    toast.success("Filter Cleared!");
   };
 
   return (
@@ -131,13 +133,19 @@ const Filter = () => {
                         name="date"
                         id="new-date-sort"
                         type="radio"
-                        onChange={() => dispatch(setDateSort("newest"))}
+                        onChange={() => {
+                          dispatch(setDateSort("newest"));
+                          toast.success("Filtered Applied!");
+                        }}
                         checked={dateSort === "newest"}
                       />
                       <label
                         style={{ color: themeObject.text }}
                         htmlFor="new-date-sort"
-                        onClick={() => dispatch(setDateSort("newest"))}
+                        onClick={() => {
+                          dispatch(setDateSort("newest"));
+                          toast.success("Filtered Applied!");
+                        }}
                       >
                         Newest First
                       </label>
@@ -149,13 +157,19 @@ const Filter = () => {
                         name="date"
                         id="old-date-sort"
                         type="radio"
-                        onChange={() => dispatch(setDateSort("oldest"))}
+                        onChange={() => {
+                          dispatch(setDateSort("oldest"));
+                          toast.success("Filtered Applied!");
+                        }}
                         checked={dateSort === "oldest"}
                       />
                       <label
                         style={{ color: themeObject.text }}
                         htmlFor="old-date-sort"
-                        onClick={() => dispatch(setDateSort("oldest"))}
+                        onClick={() => {
+                          dispatch(setDateSort("oldest"));
+                          toast.success("Filtered Applied!");
+                        }}
                       >
                         Oldest First
                       </label>
@@ -175,17 +189,19 @@ const Filter = () => {
                         type="radio"
                         id="high-priority-sort"
                         name="priority"
-                        onChange={() =>
-                          dispatch(setPriorityFilter("high-priority"))
-                        }
+                        onChange={() => {
+                          dispatch(setPriorityFilter("high-priority"));
+                          toast.success("Filtered Applied!");
+                        }}
                         checked={priorityFilter === "high-priority"}
                       />
                       <label
                         htmlFor="high-priority-sort"
                         style={{ color: themeObject.text }}
-                        onClick={() =>
-                          dispatch(setPriorityFilter("high-priority"))
-                        }
+                        onClick={() => {
+                          dispatch(setPriorityFilter("high-priority"));
+                          toast.success("Filtered Applied!");
+                        }}
                       >
                         High Priority
                       </label>
@@ -205,9 +221,10 @@ const Filter = () => {
                       <label
                         htmlFor="medium-priority-sort"
                         style={{ color: themeObject.text }}
-                        onClick={() =>
-                          dispatch(setPriorityFilter("medium-priority"))
-                        }
+                        onClick={() => {
+                          dispatch(setPriorityFilter("medium-priority"));
+                          toast.success("Filtered Applied!");
+                        }}
                       >
                         Medium Priority
                       </label>
@@ -219,17 +236,19 @@ const Filter = () => {
                         type="radio"
                         id="low-priority-sort"
                         name="priority"
-                        onChange={() =>
-                          dispatch(setPriorityFilter("low-priority"))
-                        }
+                        onChange={() => {
+                          dispatch(setPriorityFilter("low-priority"));
+                          toast.success("Filtered Applied!");
+                        }}
                         checked={priorityFilter === "low-priority"}
                       />
                       <label
                         htmlFor="low-priority-sort"
                         style={{ color: themeObject.text }}
-                        onClick={() =>
-                          dispatch(setPriorityFilter("low-priority"))
-                        }
+                        onClick={() => {
+                          dispatch(setPriorityFilter("low-priority"));
+                          toast.success("Filtered Applied!");
+                        }}
                       >
                         Low Priority
                       </label>
@@ -252,12 +271,18 @@ const Filter = () => {
                               name="labels"
                               id={`${label}Tag`}
                               value={label}
-                              onChange={() => dispatch(setlabelFilter(label))}
+                              onChange={() => {
+                                dispatch(setlabelFilter(label));
+                                toast.success("Filtered Applied!");
+                              }}
                               checked={labelFilter === label}
                             />
                             <label
                               htmlFor={`${label}Tag`}
-                              onClick={() => dispatch(setlabelFilter(label))}
+                              onClick={() => {
+                                dispatch(setlabelFilter(label));
+                                toast.success("Filtered Applied!");
+                              }}
                             >
                               {label}
                             </label>
