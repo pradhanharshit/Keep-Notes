@@ -8,7 +8,7 @@ import {
 import App from "../App";
 import LandingPage from "../frontend/Pages/LandingPage/LandingPage";
 import Login from "../frontend/Pages/Login/Login";
-import Home from "../frontend/components/Home/Home";
+import Home from "../frontend/Pages/Home/Home";
 import Archive from "../frontend/Pages/Archive/Archive";
 import Trash from "../frontend/Pages/Trash/Trash";
 import Labels from "../frontend/Pages/Labels/Labels";

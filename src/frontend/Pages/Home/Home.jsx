@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
-import NoteCard from "../NoteCard/NoteCard";
-import NewNoteCard from "../NewNoteCard/NewNoteCard";
+import NoteCard from "../../components/NoteCard/NoteCard";
+import NewNoteCard from "../../components/NewNoteCard/NewNoteCard";
 import { getAllNotes } from "../../../services/notesService";
 import { useEffect } from "react";
 import { addNotesToArray, changeLabelsArray } from "../../../store/notesSlice";
