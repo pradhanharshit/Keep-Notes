@@ -37,7 +37,7 @@ const TrashNoteCard = ({ data }) => {
         ></div>
 
         <div className="w-[100%] flex justify-evenly">
-          <span>Created on - {data.date.slice(0, 9)}</span>
+          <span>Created on - {data.date.slice(0, 10)}</span>
 
           <ArrowPathIcon
             className="h-[30px] w-[30px] hover:scale-125"
