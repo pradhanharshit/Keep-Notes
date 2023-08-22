@@ -21,12 +21,26 @@ const Archive = () => {
   }, [archiveNoteRender]);
   return (
     <div className="home text-center">
-      <h1 className="text-3xl font-semibold text-blue-400">Archived Notes</h1>
-      <div className="flex flex-col items-center m-4">
-        {archivedNotes.map((archivenote) => {
-          return <ArchivedNoteCard key={archivenote._id} data={archivenote} />;
-        })}
-      </div>
+      <h1 className="text-3xl font-semibold text-blue-400 mb-2">
+        Archived Notes
+      </h1>
+      {archivedNotes.length === 0 ? (
+        <div className="text-center">
+          <p className="font-bold text-xl text-blue-400">
+            Nothing here yet...!!
+          </p>
+        </div>
+      ) : (
+        <>
+          <div className="flex flex-col items-center m-4">
+            {archivedNotes.map((archivenote) => {
+              return (
+                <ArchivedNoteCard key={archivenote._id} data={archivenote} />
+              );
+            })}
+          </div>
+        </>
+      )}
     </div>
   );
 };

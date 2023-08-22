@@ -30,7 +30,7 @@ const Labels = () => {
   return (
     <>
       <div className="text-center">
-        <h1 className="text-3xl font-semibold text-blue-400">Labels</h1>
+        <h1 className="text-3xl font-semibold text-blue-400 mb-2">Labels</h1>
       </div>
       <div>
         {labelsArray.length === 0 ? (

@@ -23,10 +23,22 @@ const Trash = () => {
 
   return (
     <>
-      <h1 className="text-3xl font-semibold text-blue-400">Trashed Notes</h1>
-      {trashedNotes.map((trashNote) => {
-        return <TrashNoteCard key={trashNote._id} data={trashNote} />;
-      })}
+      <p className="text-3xl font-semibold text-blue-400 text-center mb-2">
+        Trashed Notes
+      </p>
+      {trashedNotes.length === 0 ? (
+        <div className="text-center">
+          <p className="font-bold text-xl text-blue-400">
+            Nothing here yet...!!
+          </p>
+        </div>
+      ) : (
+        <>
+          {trashedNotes.map((trashNote) => {
+            return <TrashNoteCard key={trashNote._id} data={trashNote} />;
+          })}
+        </>
+      )}
     </>
   );
 };
